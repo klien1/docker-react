@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build:
+      # context is where all files and folder where the image will pull from
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+    environment:
+      - WATCHPACK_POLLING=true
+  tests:
+    build:
+      # context is where all files and folder where the image will pull from
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    environment:
+      - WATCHPACK_POLLING=true   
+    command: ["npm", "test"]
